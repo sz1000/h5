@@ -1,0 +1,30 @@
+{
+  "id": "2252413",
+  "name": "vue-h5-template",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2076190",
+      "name": "搜索",
+      "font_class": "sousuo",
+      "unicode": "e86e",
+      "unicode_decimal": 59502
+    },
+    {
+      "icon_id": "12880829",
+      "name": "left",
+      "font_class": "left",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "1555757",
+      "name": "right",
+      "font_class": "right1",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    }
+  ]
+}
