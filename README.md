@@ -1136,13 +1136,14 @@ Vscode setting.json 设置
 回复加群，即可加入”前端仙女群“
 
  <p>
-  <img src="./static/gognzhonghao.jpg" width="256" style="display:inline;">
+  574625751
 </p>
 
-扫描添加下方的微信并备注 Sol 加交流群，交流学习，及时获取代码最新动态。
+如果对你有帮助，需要感谢的可以买杯奶茶
 
 <p>
-  <img src="./static/me.png" width="256" style="display:inline;">
+  <img src="../static/my.png" width="256px" height="256px" style="display:inline;">
+  <img src="../static/my2.png" width="256px" height="256px" style="display:inline;">
 </p>
  
 如果对你有帮助送我一颗小星星（づ￣3￣）づ╭❤～
