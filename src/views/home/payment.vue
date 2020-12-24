@@ -2,71 +2,88 @@
 <template>
   <div class="box">
     <div>
-      <van-image
-        width="100%"
-        height="100%"
-        margin="auto"
-        :src="require('../../assets/images/navibar_bg_3@2x.png')"
-      />
+      <van-image width="100%" height="100%" margin="auto" :src="require('../../assets/images/navibar_bg_3@2x.png')" />
     </div>
     <div class="content">
       <div class="list">
-        <van-field label="商品名称：" value="惊喜炸货铺" readonly />
-        <van-field label="支付时间：" value="2020年10月20日" readonly />
-        <van-field label="支付订单号：" value="1234567890098" readonly />
+        <van-field label="商户名称：" v-model="merName" value="" readonly />
+        <van-field label="支付时间：" v-model="tradeDate" value="" readonly />
+        <van-field label="支付订单号：" v-model="tradeTrace" value="" readonly />
       </div>
       <div>
-        <van-button
-          class="query"
-          round
-          block
-          type="info"
-          native-type="submit"
-          @click="finish"
-        >
-          完成
-        </van-button>
-        <van-button round block class="concel" native-type="submit" @click="toInvoice">
-          开发票
-        </van-button>
+        <!-- <van-button class="query" round block type="info" native-type="submit" @click="finish"> 完成 </van-button> -->
+        <van-button round block class="concel" native-type="submit" @click="toInvoice"> 开发票 </van-button>
       </div>
       <div class="deal">
-        <van-checkbox v-model="checked"
-          >关注<a class="easy" href="#">易生小助手</a>
-          查询订单详情或者补开发票</van-checkbox
-        >
+        关注<a class="easy" href="#">易生小助手公众号</a>可查询订单详情或者开发票
+        <!-- <van-checkbox v-model="checked"
+          >关注<a class="easy" href="#">易生小助手</a> 查询订单详情或者补开发票</van-checkbox
+        > -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { query, invoice, orderInfo } from '@/api/product'
 export default {
   data() {
     return {
       checked: false,
-    };
+      merName: '',
+      tradeDate: '',
+      tradeTrace: ''
+    }
   },
   computed: {},
   mounted() {
-    this.totalMoney = this.$route.query.totalMoney;
+    this.orderInfo()
   },
   methods: {
+    async orderInfo() {
+      //订单信息接口
+      let param = new URLSearchParams()
+      let channelId = 'WZPOS0001'
+      let merId = '831450072980005'
+      let termId = '30000792'
+      let tradeDate = '20201223'
+      let payChannelBalanceTrace = '11920201223100840135619'
+      param.append('channelId', channelId)
+      param.append('merId', merId)
+      param.append('termId', termId)
+      param.append('tradeDate', tradeDate)
+      param.append('payChannelBalanceTrace', payChannelBalanceTrace)
+      const { data: data } = await orderInfo(param)
+      if (data.resultCode == '00') {
+        var jsonData = JSON.parse(data.data)
+        console.log(jsonData)
+        this.merName = jsonData.merName //商户名称
+        // this.tradeDate = jsonData.tradeDate //订单交易时间
+        this.tradeTrace = jsonData.tradeTrace //交易订单号
+        var str = jsonData.tradeDate
+        console.log(str)
+        var year = str.substring(0, 4)
+        var yue = str.substring(4, 6)
+        var r = str.substring(6, 8)
+        var date = year + '.' + yue + '.' + r + ''
+        this.tradeDate = date
+      }
+    },
     finish() {
       //   this.$router.go(-1);
-      WeixinJSBridge.call("closeWindow");
+      WeixinJSBridge.call('closeWindow')
     },
     toInvoice() {
       //   if (this.checked) {
       this.$router.push({
-        path: "/home",
-      });
+        path: '/home'
+      })
       //   } else {
       //     this.$toast("关注易小助手");
       //   }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .content {
@@ -87,6 +104,7 @@ export default {
     position: absolute;
     bottom: 0.5rem;
     left: 10%;
+    color: #999;
   }
 }
 .query {

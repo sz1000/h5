@@ -2,20 +2,14 @@
 <template>
   <div class="box">
     <div class="list">
-      <van-image
-        width="100%"
-        height="100%"
-        margin="auto"
-        :src="require('../../assets/images/navibar_bg_2@2x.png')"
-      />
+      <van-image width="100%" height="100%" margin="auto" :src="require('../../assets/images/navibar_bg_2@2x.png')" />
     </div>
     <div class="content">
       <div class="payOrder">请输入支付订单号</div>
       <van-form @submit="onSubmit">
-        <!-- <van-search v-model="searchVal" placeholder="请输入搜索关键词" input-align="center" /> -->
+        <!-- type="digit" <van-search v-model="searchVal" placeholder="请输入搜索关键词" input-align="center" /> -->
         <van-field
           clearable
-          type="digit"
           v-model="value"
           name="value"
           background="#F4F5F7"
@@ -31,15 +25,7 @@
             name="sousuo"
           ></van-icon>
         </van-field>
-        <van-button
-          class="query"
-          round
-          block
-          type="info"
-          native-type="submit"
-        >
-          查询
-        </van-button>
+        <van-button class="query" round block type="info" native-type="submit"> 查询 </van-button>
       </van-form>
       <van-button round class="cancel" @click="cancel"> 取消 </van-button>
       <!-- <van-button round block class="query" type="submit" @click="onSearch"> 查询 </van-button> -->
@@ -50,9 +36,9 @@
           <div class="close" @click="close">
             <img src="../../assets/images/close_2@2x.png" alt="" />
           </div>
-          <van-field label="支付订单号：" value="1234567890098" readonly />
-          <van-field label="支付时间：" value="2020年10月20日" readonly />
-          <van-field label="消费总额：" value="200.00元" readonly />
+          <van-field label="支付订单号：" v-model="orderNumber" value="" readonly />
+          <van-field label="支付时间：" v-model="orderTime" value="" readonly />
+          <van-field label="消费总额：" v-model="totalMoney" value="" readonly />
         </div>
         <div v-if="!isOrder" class="failedInfo">
           <div class="close" @click="close">
@@ -62,7 +48,7 @@
           <div calss="failed">请重新输入</div>
         </div>
         <van-button ref="btnText" @click="invoice" class="invoiceBtn" block type="info">
-          {{ isOrder ? "开具电子发票" : "知道了" }}
+          {{ isOrder ? '开具电子发票' : '知道了' }}
         </van-button>
       </div>
     </div>
@@ -73,46 +59,44 @@
 export default {
   data() {
     return {
-      searchVal: "",
+      searchVal: '',
       show: false,
       isOrder: false,
-      value: "",
-      totalMoney: "200.00元",
-      orderTime: "2020年10月20日12:00:22",
-      orderNumber: "1234567890098",
-    };
+      value: '',
+      totalMoney: '200',
+      orderTime: '2020.10.20',
+      orderNumber: '1234567890098'
+    }
   },
   computed: {},
-  mounted() {
-    this.totalMoney = this.$route.query.totalMoney;
-  },
+  mounted() {},
   methods: {
     cancel(val) {
-      this.value=""
+      this.value = ''
     },
     close() {
-      this.show = false;
+      this.show = false
     },
     onSubmit(val) {
-      if (!val.value) return;
-      this.show = true;
-      this.isOrder = !this.isOrder;
-      console.log(val);
+      if (!val.value) return
+      this.show = true
+      this.isOrder = !this.isOrder
+      console.log(val)
     },
     back() {
-      this.$router.go(-1);
+      this.$router.go(-1)
     },
     invoice() {
       if (this.isOrder) {
         this.$router.push({
-          path: "/home",
-        });
+          path: '/home'
+        })
       } else {
-        this.show = false;
+        this.show = false
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .content {

@@ -5,7 +5,7 @@
     <div class="list">
       <van-form>
         <van-field
-        class="totalMoney"
+          class="totalMoney"
           readonly
           label="总金额"
           input-align="right"
@@ -18,7 +18,7 @@
           readonly
           label="订单时间"
           input-align="right"
-          v-model="orderTime"
+          v-model="tradeDate"
           right-icon="right"
           :rules="[{ required: true }]"
         >
@@ -27,7 +27,7 @@
           readonly
           label="订单号"
           input-align="right"
-          v-model="orderNumber"
+          v-model="tradeTrace"
           right-icon="right"
           :rules="[{ required: true }]"
         >
@@ -41,21 +41,30 @@
 export default {
   data() {
     return {
-      totalMoney: "200.00",
-      orderTime: "2020年10月20日12:00:22",
-      orderNumber: "1234567890098",
-    };
+      totalMoney: '',
+      tradeTrace: '',
+      tradeDate: ''
+    }
   },
   computed: {},
   mounted() {
-    this.totalMoney = this.$route.query.totalMoney;
+    var str = this.$route.query.tradeDate
+    console.log(str)
+    var year = str.substring(0, 4)
+    var yue = str.substring(4, 6)
+    var r = str.substring(6, 8)
+    var date = year + '.' + yue + '.' + r + ''
+
+    this.totalMoney = this.$route.query.totalMoney
+    this.tradeTrace = this.$route.query.tradeTrace
+    this.tradeDate = date
   },
   methods: {
     back() {
-      this.$router.go(-1);
-    },
-  },
-};
+      this.$router.go(-1)
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .back {
@@ -74,9 +83,9 @@ export default {
   background-color: #fff;
   text-align: center;
 }
- /deep/.totalMoney .van-field__right-icon::before{
-   content:"元";
-   margin-right: .8rem;
-    color: #000;
+/deep/.totalMoney .van-field__right-icon::before {
+  content: '元';
+  margin-right: 0.8rem;
+  color: #000;
 }
 </style>
