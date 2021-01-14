@@ -123,6 +123,7 @@
             block
             type="info"
             native-type="submit"
+            @click="submit"
           >
             提交
           </van-button>
@@ -423,7 +424,8 @@ export default {
         event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true)
       }
     },
-    onSubmit(values) {
+    submit(values) {
+      console.log(11)
       var phone = values.phone
       var regP = /^1[3456789]\d{9}$/
       var email = values.email
@@ -443,6 +445,7 @@ export default {
       this.popupShow = true
       this.values = values
     },
+    onSubmit(values) {},
     toSubmit() {
       //确认提交
       console.log('submit', this.values)
